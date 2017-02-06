@@ -135,14 +135,14 @@ namespace ElectronicObserver.Window {
 					Name.Text = string.Format( "#{0} - {1}", corps.MapAreaID, corps.Name );
 					Name.Tag = corps.MapAreaID;
 					var sb = new StringBuilder();
-					sb.AppendLine( "所属海域: " + KCDatabase.Instance.MapArea[corps.MapAreaID].Name );
+					sb.AppendLine( "소속 해역: " + KCDatabase.Instance.MapArea[corps.MapAreaID].Name );
 
 					// state 
 					if ( corps.Squadrons.Values.Any( sq => sq != null && sq.AircraftCurrent < sq.AircraftMax ) ) {
-						// 未補給
+						// 미보급
 						Name.ImageAlign = ContentAlignment.MiddleRight;
 						Name.ImageIndex = (int)ResourceManager.IconContent.FleetNotReplenished;
-						sb.AppendLine( "未補給" );
+						sb.AppendLine( "미보급" );
 
 					} else if ( corps.Squadrons.Values.Any( sq => sq != null && sq.Condition > 1 ) ) {
 						// 疲労
@@ -151,12 +151,12 @@ namespace ElectronicObserver.Window {
 						if ( tired == 2 ) {
 							Name.ImageAlign = ContentAlignment.MiddleRight;
 							Name.ImageIndex = (int)ResourceManager.IconContent.ConditionTired;
-							sb.AppendLine( "疲労" );
+							sb.AppendLine( "피로" );
 
 						} else {
 							Name.ImageAlign = ContentAlignment.MiddleRight;
 							Name.ImageIndex = (int)ResourceManager.IconContent.ConditionVeryTired;
-							sb.AppendLine( "過労" );
+							sb.AppendLine( "과로" );
 
 						}
 
@@ -174,7 +174,7 @@ namespace ElectronicObserver.Window {
 						int airSuperiority = Calculator.GetAirSuperiority( corps );
 						AirSuperiority.Text = airSuperiority.ToString();
 						ToolTipInfo.SetToolTip( AirSuperiority,
-							string.Format( "確保: {0}\r\n優勢: {1}\r\n均衡: {2}\r\n劣勢: {3}\r\n",
+							string.Format( "확보: {0}\r\n우세: {1}\r\n균형: {2}\r\n열세: {3}\r\n",
 							(int)( airSuperiority / 3.0 ),
 							(int)( airSuperiority / 1.5 ),
 							Math.Max( (int)( airSuperiority * 1.5 - 1 ), 0 ),
@@ -214,7 +214,7 @@ namespace ElectronicObserver.Window {
 				var sb = new StringBuilder();
 
 				if ( corps == null )
-					return "(未開放)\r\n";
+					return "(미개방)\r\n";
 
 				foreach ( var squadron in corps.Squadrons.Values ) {
 					if ( squadron == null )
@@ -240,10 +240,10 @@ namespace ElectronicObserver.Window {
 								default:
 									break;
 								case 2:
-									sb.Append( "[疲労] " );
+									sb.Append( "[피로] " );
 									break;
 								case 3:
-									sb.Append( "[過労] " );
+									sb.Append( "[과로] " );
 									break;
 							}
 
@@ -251,7 +251,7 @@ namespace ElectronicObserver.Window {
 							break;
 
 						case 2:		// 配置転換中
-							sb.AppendFormat( "配置転換中 (開始時刻: {0})\r\n",
+							sb.AppendFormat( "배치 전환 중 (시작 시간: {0})\r\n",
 								DateTimeHelper.TimeToCSVString( squadron.RelocatedTime ) );
 							break;
 					}
@@ -347,7 +347,7 @@ namespace ElectronicObserver.Window {
 
 			foreach ( var corps in baseaircorps ) {
 
-				sb.AppendFormat( "{0}\t[{1}] 制空戦力{2}/戦闘行動半径{3}\r\n",
+				sb.AppendFormat( "{0}\t[{1}] 제공전력{2}/전투행동반경{3}\r\n",
 					( areaid == -1 ? ( KCDatabase.Instance.MapArea[corps.MapAreaID].Name + "：" ) : "" ) + corps.Name,
 					Constants.GetBaseAirCorpsActionKind( corps.ActionKind ),
 					Calculator.GetAirSuperiority( corps ),
@@ -360,24 +360,24 @@ namespace ElectronicObserver.Window {
 						sb.Append( "/" );
 
 					if ( sq[i] == null ) {
-						sb.Append( "(消息不明)" );
+						sb.Append( "(소식 불명)" );
 						continue;
 					}
 
 					switch ( sq[i].State ) {
 						case 0:
-							sb.Append( "(未配属)" );
+							sb.Append( "(미배속)" );
 							break;
 						case 1: {
 								var eq = sq[i].EquipmentInstance;
 
-								sb.Append( eq == null ? "(なし)" : eq.NameWithLevel );
+								sb.Append( eq == null ? "(없음)" : eq.NameWithLevel );
 
 								if ( sq[i].AircraftCurrent < sq[i].AircraftMax )
 									sb.AppendFormat( "[{0}/{1}]", sq[i].AircraftCurrent, sq[i].AircraftMax );
 							} break;
 						case 2:
-							sb.Append( "(配置転換中)" );
+							sb.Append( "(배치전환중)" );
 							break;
 					}
 				}
@@ -395,9 +395,9 @@ namespace ElectronicObserver.Window {
 				.Select( eq => string.Format( "{0} ({1}～)", eq.EquipmentInstance.NameWithLevel, DateTimeHelper.TimeToCSVString( eq.RelocatedTime ) ) ) );
 
 			if ( message.Length == 0 )
-				message = "現在配置転換中の装備はありません。";
+				message = "현재 배치 전환중인 장비가 없습니다.";
 
-			MessageBox.Show( message, "配置転換中装備", MessageBoxButtons.OK, MessageBoxIcon.Information );
+			MessageBox.Show( message, "배치 전환중 장비", MessageBoxButtons.OK, MessageBoxIcon.Information );
 		}
 
 

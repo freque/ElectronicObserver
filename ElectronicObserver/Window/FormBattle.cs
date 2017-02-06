@@ -328,7 +328,7 @@ namespace ElectronicObserver.Window {
 
 			if ( pd != null && pd.IsAvailable ) {
 
-				Searching.Text = "基地航空隊";
+				Searching.Text = "기지 항공대";
 				Searching.ImageAlign = ContentAlignment.MiddleLeft;
 				Searching.ImageIndex = (int)ResourceManager.EquipmentContent.LandAttacker;
 
@@ -337,17 +337,17 @@ namespace ElectronicObserver.Window {
 
 				foreach ( var phase in pd.AirAttackUnits ) {
 
-					sb.AppendFormat( "{0} 回目 - #{1} :\r\n",
+					sb.AppendFormat( "{0} 회차 - #{1} :\r\n",
 						index, phase.AirUnitID );
 
 					if ( phase.IsStage1Available ) {
-						sb.AppendFormat( "　St1: 自軍 -{0}/{1} | 敵軍 -{2}/{3} | {4}\r\n",
+						sb.AppendFormat( "　St1: 아군 -{0}/{1} | 적군 -{2}/{3} | {4}\r\n",
 							phase.AircraftLostStage1Friend, phase.AircraftTotalStage1Friend,
 							phase.AircraftLostStage1Enemy, phase.AircraftTotalStage1Enemy,
 							Constants.GetAirSuperiority( phase.AirSuperiority ) );
 					}
 					if ( phase.IsStage2Available ) {
-						sb.AppendFormat( "　St2: 自軍 -{0}/{1} | 敵軍 -{2}/{3}\r\n",
+						sb.AppendFormat( "　St2: 아군 -{0}/{1} | 적군 -{2}/{3}\r\n",
 							phase.AircraftLostStage2Friend, phase.AircraftTotalStage2Friend,
 							phase.AircraftLostStage2Enemy, phase.AircraftTotalStage2Enemy );
 					}
@@ -368,7 +368,7 @@ namespace ElectronicObserver.Window {
 		/// 基地航空隊フェーズの結果をクリアします。
 		/// </summary>
 		private void ClearBaseAirAttack() {
-			Searching.Text = "索敵";
+			Searching.Text = "색적";
 			Searching.ImageAlign = ContentAlignment.MiddleCenter;
 			Searching.ImageIndex = -1;
 			ToolTipInfo.SetToolTip( Searching, null );
@@ -407,7 +407,7 @@ namespace ElectronicObserver.Window {
 				if ( touchFriend != -1 ) {
 					AirStage1Friend.ImageAlign = ContentAlignment.MiddleLeft;
 					AirStage1Friend.ImageIndex = (int)ResourceManager.EquipmentContent.Seaplane;
-					ToolTipInfo.SetToolTip( AirStage1Friend, "触接中: " + KCDatabase.Instance.MasterEquipments[touchFriend].Name );
+					ToolTipInfo.SetToolTip( AirStage1Friend, "색적중: " + KCDatabase.Instance.MasterEquipments[touchFriend].Name );
 				} else {
 					AirStage1Friend.ImageAlign = ContentAlignment.MiddleCenter;
 					AirStage1Friend.ImageIndex = -1;
@@ -418,7 +418,7 @@ namespace ElectronicObserver.Window {
 				if ( touchEnemy != -1 ) {
 					AirStage1Enemy.ImageAlign = ContentAlignment.MiddleLeft;
 					AirStage1Enemy.ImageIndex = (int)ResourceManager.EquipmentContent.Seaplane;
-					ToolTipInfo.SetToolTip( AirStage1Enemy, "触接中: " + KCDatabase.Instance.MasterEquipments[touchEnemy].Name );
+					ToolTipInfo.SetToolTip( AirStage1Enemy, "색적중: " + KCDatabase.Instance.MasterEquipments[touchEnemy].Name );
 				} else {
 					AirStage1Enemy.ImageAlign = ContentAlignment.MiddleCenter;
 					AirStage1Enemy.ImageIndex = -1;
@@ -471,13 +471,13 @@ namespace ElectronicObserver.Window {
 					AACutin.ImageAlign = ContentAlignment.MiddleLeft;
 					AACutin.ImageIndex = (int)ResourceManager.EquipmentContent.HighAngleGun;
 					ToolTipInfo.SetToolTip( AACutin, string.Format(
-						"対空カットイン: {0}\r\nカットイン種別: {1} ({2})",
+						"대공 컷인: {0}\r\nカットイン種別: {1} ({2})",
 						pd.AACutInShip.NameWithLevel,
 						cutinID,
 						Constants.GetAACutinKind( cutinID ) ) );
 
 				} else {
-					AACutin.Text = "対空砲火";
+					AACutin.Text = "대공포";
 					AACutin.ImageAlign = ContentAlignment.MiddleCenter;
 					AACutin.ImageIndex = -1;
 					ToolTipInfo.SetToolTip( AACutin, null );
@@ -488,7 +488,7 @@ namespace ElectronicObserver.Window {
 				AirStage2Friend.ForeColor = SystemColors.ControlText;
 				AirStage2Enemy.Text = "-";
 				AirStage2Enemy.ForeColor = SystemColors.ControlText;
-				AACutin.Text = "対空砲火";
+				AACutin.Text = "대공포";
 				AACutin.ImageAlign = ContentAlignment.MiddleCenter;
 				AACutin.ImageIndex = -1;
 				ToolTipInfo.SetToolTip( AACutin, null );
@@ -1175,8 +1175,6 @@ namespace ElectronicObserver.Window {
 		protected override string GetPersistString() {
 			return "Battle";
 		}
-
-
-	}
+    }
 
 }
