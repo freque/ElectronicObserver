@@ -13,8 +13,8 @@ namespace Browser {
 		static void Main( string[] args ) {
 			// FormBrowserHostから起動された時は引数に通信用URLが渡される
 			if ( args.Length == 0 ) {
-				MessageBox.Show( "これは七四式電子観測儀のサブプログラムであり、単体では起動できません。\r\n本体から起動してください。", 
-					"情報", MessageBoxButtons.OK, MessageBoxIcon.Information );
+				MessageBox.Show("이 프로그램은 74식전자관측의의 서브 프로그램으로\r\n독립실행이 불가능합니다.\r\n본 프로그램에서 실행해주시기 바랍니다.", 
+					"정보", MessageBoxButtons.OK, MessageBoxIcon.Information );
 				return;
 			}
 			Application.EnableVisualStyles();
