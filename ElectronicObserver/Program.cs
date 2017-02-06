@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace ElectronicObserver {
 	static class Program {
 		/// <summary>
-		/// アプリケーションのメイン エントリ ポイントです。
+		/// 응용 프로그램 주 진입점
 		/// </summary>
 		[STAThread]
 		static void Main() {
@@ -17,7 +17,7 @@ namespace ElectronicObserver {
 
 			if ( !mutex.WaitOne( 0, false ) ) {
 				// 多重起動禁止
-				MessageBox.Show( "既に起動しています。\r\n多重起動はできません。", "七四式電子観測儀", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				MessageBox.Show( "접속기가 이미 실행중입니다.。\r\n동시 실행은 할 수 없습니다.", "74식전자관측의", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				return;
 			}
 
